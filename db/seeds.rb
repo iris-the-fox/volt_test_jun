@@ -16,7 +16,7 @@ users = User.create!(all_users)
 all_posts = []
 
 users.each do |user|
-  rand(5).times do
+  rand(1..5).times do
     all_posts << { author_id: user.id,
                    title: Faker::Lorem.word,
                    body: Faker::HarryPotter.quote,
@@ -30,7 +30,7 @@ posts = Post.create!(all_posts)
 all_comments = []
 
 posts.each do |post|
-  rand(5).times do
+  rand(1..5).times do
     all_comments << { post_id: post.id,
                       author_id: users[rand(10)].id,
                       body: Faker::HarryPotter.spell,
