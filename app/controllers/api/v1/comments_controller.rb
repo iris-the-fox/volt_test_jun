@@ -20,7 +20,7 @@ class Api::V1::CommentsController < ApplicationController
     @comment = Comment.new(comment_params)
 
     if @comment.save
-      render json: @comment, status: :created, location: api_v1_article_url(@comment)
+      render json: @comment, status: :created, location: api_v1_comment_url(@comment)
     else
       render json: @comment.errors, status: :unprocessable_entity
     end
