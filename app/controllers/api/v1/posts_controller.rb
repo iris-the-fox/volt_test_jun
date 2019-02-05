@@ -1,15 +1,17 @@
-class PostsController < ApplicationController
+class Api::V1::PostsController < ApplicationController
   before_action :set_post, only: [:show, :update, :destroy]
 
   # GET /posts
   # GET /posts.json
   def index
     @posts = Post.all
+    render json: @posts
   end
 
   # GET /posts/1
   # GET /posts/1.json
   def show
+    render json: @post
   end
 
   # POST /posts
@@ -18,7 +20,7 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
 
     if @post.save
-      render :show, status: :created, location: @post
+      render json: @post, status: :created, location: api_v1_article_url(@post)
     else
       render json: @post.errors, status: :unprocessable_entity
     end
@@ -28,7 +30,7 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1.json
   def update
     if @post.update(post_params)
-      render :show, status: :ok, location: @post
+      render json: @post
     else
       render json: @post.errors, status: :unprocessable_entity
     end
