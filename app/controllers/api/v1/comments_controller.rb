@@ -3,13 +3,15 @@ class Api::V1::CommentsController < ApplicationController
 
   # GET /comments
   # GET /comments.json
-  def index
+    def index
     @comments = Comment.all
+    render json: @comments
   end
 
   # GET /comments/1
   # GET /comments/1.json
   def show
+    render json: @comment
   end
 
   # POST /comments
@@ -18,7 +20,7 @@ class Api::V1::CommentsController < ApplicationController
     @comment = Comment.new(comment_params)
 
     if @comment.save
-      render :show, status: :created, location: @comment
+      render json: @comment, status: :created, location: api_v1_article_url(@comment)
     else
       render json: @comment.errors, status: :unprocessable_entity
     end
@@ -28,7 +30,7 @@ class Api::V1::CommentsController < ApplicationController
   # PATCH/PUT /comments/1.json
   def update
     if @comment.update(comment_params)
-      render :show, status: :ok, location: @comment
+      render json: @comment
     else
       render json: @comment.errors, status: :unprocessable_entity
     end
@@ -48,6 +50,6 @@ class Api::V1::CommentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def comment_params
-      params.require(:comment).permit(:body, :author_id, :post_id, :published_at)
+      params.require(:comment).permit(:body, :author_id, :comment_id, :published_at)
     end
 end
