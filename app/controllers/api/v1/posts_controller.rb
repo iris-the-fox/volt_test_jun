@@ -1,9 +1,13 @@
 class Api::V1::PostsController < ApplicationController
   before_action :set_post, only: [:show, :update, :destroy]
+  set_pagination_headers :posts, only: [:index]
+
 
   # GET /posts
   # GET /posts.json
   def index
+    #@posts = Post.all
+    #paginate(:page => params[:page], :per_page => params[:per_page], json: @posts)
     @posts = Post.all.paginate(:page => params[:page], :per_page => params[:per_page])
     render json: @posts
   end
