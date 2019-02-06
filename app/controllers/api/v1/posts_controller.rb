@@ -21,7 +21,7 @@ class Api::V1::PostsController < ApplicationController
   # POST /posts
   # POST /posts.json
   def create
-    @post = Post.new(post_params)
+    @post = @current_user.posts.new(post_params)
 
     if @post.save
       render json: @post, status: :created, location: api_v1_post_url(@post)
@@ -54,6 +54,6 @@ class Api::V1::PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:title, :body, :author_id, :published_at)
+      params.require(:post).permit(:title, :body, :published_at)
     end
 end

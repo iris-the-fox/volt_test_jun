@@ -17,7 +17,7 @@ class Api::V1::CommentsController < ApplicationController
   # POST /comments
   # POST /comments.json
   def create
-    @comment = Comment.new(comment_params)
+    @comment = @current_user.comments.new(comment_params)
 
     if @comment.save
       render json: @comment, status: :created, location: api_v1_comment_url(@comment)
@@ -50,6 +50,6 @@ class Api::V1::CommentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def comment_params
-      params.require(:comment).permit(:body, :author_id, :comment_id, :published_at)
+      params.require(:comment).permit(:body, :post_id, :published_at)
     end
 end
