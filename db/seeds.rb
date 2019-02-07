@@ -7,7 +7,8 @@ all_users =[test_user]
 10.times do 
 	all_users << { nickname: Faker::HarryPotter.character,
 	               email: Faker::Internet.safe_email,
-	               password: Faker::Internet.password }
+	               password: Faker::Internet.password 
+               }
 end
 
 users = User.create!(all_users)
@@ -20,7 +21,8 @@ users.each do |user|
     all_posts << { author_id: user.id,
                    title: Faker::Lorem.word,
                    body: Faker::HarryPotter.quote,
-                   published_at: Faker::Time.between(DateTime.now - 10, DateTime.now) }
+                   published_at: Faker::Time.between(DateTime.now - 10, DateTime.now) 
+                 }
   end
 end
 
@@ -34,7 +36,8 @@ posts.each do |post|
     all_comments << { post_id: post.id,
                       author_id: users[rand(10)].id,
                       body: Faker::HarryPotter.spell,
-                      published_at: Faker::Time.between(post.published_at, DateTime.now) }
+                      published_at: Faker::Time.between(post.published_at, DateTime.now) 
+                    }
   end
 end
 

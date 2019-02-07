@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   end
 
   resources :users, param: :_nickname
-  post '/auth/login', to: 'authentication#login'
+  post 'auth_login', to: 'authentication#login'
   get '/*a', to: 'application#not_found'
 
 end
