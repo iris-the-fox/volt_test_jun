@@ -24,7 +24,7 @@ users.each do |user|
     all_posts << { author_id: user.id,
                    title: Faker::Lorem.word,
                    body: Faker::HarryPotter.quote,
-                   published_at: Faker::Time.between(Time.now - 10, Time.now) 
+                   published_at: Faker::Time.between(DateTime.current - 10, DateTime.current) 
                  }
   end
 end
