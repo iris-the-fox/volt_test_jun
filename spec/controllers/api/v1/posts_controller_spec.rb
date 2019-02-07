@@ -50,8 +50,8 @@ RSpec.describe Api::V1::PostsController, type: :controller do
     @posts = create_list(:post, 10)
   end
 
-  let(:correct_show_post) { {params: {id: @posts.last.id}}}
-  let(:correct_index_post) { {params: {page: 1, per_page: 10}}}
+  let(:show_post) { {params: {id: @posts.last.id}}}
+  let(:index_post) { {params: {page: 1, per_page: 10}}}
 
   
   describe 'post show' do
@@ -60,7 +60,7 @@ RSpec.describe Api::V1::PostsController, type: :controller do
 
       it 'should return post and 200 OK status' do
         request.headers["Authorization"] = @token
-        resp = get :show, correct_show_post
+        resp = get :show, show_post
         expect(response.status).to eq 200
         expect(JSON.parse(resp.body)['title']).to eq(@posts.last.title)
       end
@@ -71,7 +71,7 @@ RSpec.describe Api::V1::PostsController, type: :controller do
 
     it 'should return correct list of posts and 200 OK status' do
       request.headers["Authorization"] = @token
-      resp = get :index, correct_index_post
+      resp = get :index, index_post
       expect(response.status).to eq 200
       expect(JSON.parse(resp.body).count).to eq(10)
     end
